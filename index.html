@@ -146,7 +146,7 @@
     gap:40px;
     align-items:center;
     padding-top:72px;
-    padding-bottom:64px;
+    padding-bottom:84px;
   }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
@@ -247,6 +247,7 @@
   /* ---------- Trust strip ---------- */
   .trust{
     border-bottom:1px solid var(--line);
+    background:var(--paper);
   }
   .trust .wrap{
     display:grid; grid-template-columns:repeat(4,1fr);
@@ -254,8 +255,12 @@
   }
   .trust-item{
     display:flex; align-items:center; gap:14px;
-    padding:26px 20px;
+    padding:34px 20px;
     border-left:1px solid var(--line);
+  }
+  /* extra breathing room between the trust strip and the section right after it */
+  .trust + section{
+    padding-top:120px;
   }
   .trust-item:first-child{border-left:none;}
   .trust-item .ic{
@@ -561,6 +566,9 @@
     .price-section{padding:44px 24px; margin:0 16px;}
     .newsletter{padding:40px 28px; flex-direction:column; text-align:center; align-items:flex-start;}
     .quote-wrap{padding:40px 24px;}
+    .trust + section{padding-top:64px;}
+    #services, section[style*="padding-top:120px"]{padding-top:56px !important;}
+    section[style*="padding-bottom:130px"]{padding-bottom:64px !important;}
   }
   @media(max-width:560px){
     .wrap{padding:0 20px;}
@@ -729,7 +737,7 @@
 </section>
 
 <!-- Fair price breakdown (signature) -->
-<section style="padding:0 0 88px;">
+<section style="padding:32px 0 88px;">
   <div class="price-section reveal">
     <div class="section-head" style="margin-bottom:0;">
       <div style="max-width:600px;">
@@ -806,7 +814,7 @@
 </section>
 
 <!-- Best sellers -->
-<section class="wrap reveal">
+<section class="wrap reveal" style="padding-top:120px;">
   <div class="section-head">
     <div>
       <span class="tag">Best sellers</span>
@@ -941,7 +949,7 @@
 </section>
 
 <!-- Services -->
-<section class="wrap reveal" id="services">
+<section class="wrap reveal" id="services" style="padding-top:120px;">
   <div class="section-head">
     <div>
       <span class="tag">Beyond the pharmacy counter</span>
@@ -978,7 +986,7 @@
 </section>
 
 <!-- Newsletter -->
-<section class="wrap reveal" style="padding-top:0;">
+<section class="wrap reveal" style="padding-top:24px; padding-bottom:130px;">
   <div class="newsletter">
     <div>
       <h3>Get 10% off your first order.</h3>
