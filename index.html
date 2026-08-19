@@ -2,1076 +2,1714 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Medexa Healthcare — Trusted care, honestly priced.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drape Lagos — Ready-to-Wear</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-  :root{
-    --lime:#A6D108;
-    --lime-dark:#87AC07;
-    --olive:#3F4C08;
-    --olive-soft:#5A6E0B;
-    --ink:#14161A;
-    --ink-70:#4A4D48;
-    --ink-50:#767a72;
-    --paper:#FFFFFF;
-    --sage:#F4F7E9;
-    --sage-2:#EBF1D9;
-    --line:#E3E7D9;
-    --radius:14px;
-    --shadow: 0 1px 2px rgba(20,22,26,0.04), 0 8px 24px rgba(20,22,26,0.06);
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    font-family:'Inter',sans-serif;
-    color:var(--ink);
-    background:var(--paper);
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,h4{
-    font-family:'Space Grotesk',sans-serif;
-    margin:0;
-    letter-spacing:-0.01em;
-  }
-  .mono{
-    font-family:'IBM Plex Mono',monospace;
-  }
-  a{color:inherit; text-decoration:none;}
-  img{max-width:100%; display:block;}
-  .wrap{
-    max-width:1240px;
-    margin:0 auto;
-    padding:0 32px;
-  }
-  button{font-family:inherit; cursor:pointer;}
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  /* ---------- Topbar ---------- */
-  .topbar{
-    background:var(--ink);
-    color:#D9DDCF;
-    font-size:13px;
-  }
-  .topbar .wrap{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding-top:9px;
-    padding-bottom:9px;
-  }
-  .topbar-left{display:flex; align-items:center; gap:8px;}
-  .topbar-left .dot{
-    width:7px;height:7px;border-radius:50%;
-    background:var(--lime);
-    display:inline-block;
-  }
-  .topbar-right{display:flex; align-items:center; gap:22px;}
-  .topbar-right a{opacity:.9; transition:opacity .15s;}
-  .topbar-right a:hover{opacity:1; color:var(--lime);}
-  .topbar-social{display:flex; gap:14px;}
-
-  /* ---------- Header ---------- */
-  header.site{
-    position:sticky; top:0; z-index:40;
-    background:rgba(255,255,255,0.92);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 0;
-    gap:24px;
-  }
-  .logo img{height:44px; width:auto;}
-  .nav-links{
-    display:flex; align-items:center; gap:34px;
-    font-size:15px; font-weight:500;
-    list-style:none; margin:0; padding:0;
-  }
-  .nav-links a{
-    position:relative; padding:6px 0; color:var(--ink);
-  }
-  .nav-links a::after{
-    content:'';
-    position:absolute; left:0; bottom:0;
-    width:0; height:2px; background:var(--lime-dark);
-    transition:width .2s ease;
-  }
-  .nav-links a:hover::after{width:100%;}
-  .nav-actions{display:flex; align-items:center; gap:14px;}
-  .icon-btn{
-    width:40px; height:40px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    background:var(--sage);
-    border:1px solid var(--line);
-    transition:background .15s;
-  }
-  .icon-btn:hover{background:var(--sage-2);}
-  .btn{
-    display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    padding:13px 24px;
-    border-radius:100px;
-    font-weight:600; font-size:14.5px;
-    border:1.5px solid transparent;
-    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
-    white-space:nowrap;
-  }
-  .btn-primary{background:var(--lime); color:var(--ink);}
-  .btn-primary:hover{background:var(--lime-dark); transform:translateY(-1px);}
-  .btn-dark{background:var(--ink); color:#fff;}
-  .btn-dark:hover{background:#000; transform:translateY(-1px);}
-  .btn-ghost{background:transparent; border-color:var(--ink); color:var(--ink);}
-  .btn-ghost:hover{background:var(--ink); color:#fff;}
-  .cart-pill{
-    display:flex; align-items:center; gap:8px;
-    background:var(--ink); color:#fff;
-    padding:9px 16px; border-radius:100px;
-    font-size:13.5px; font-weight:600;
-  }
-  .menu-toggle{display:none; background:none; border:none;}
-
-  /* ---------- Hero ---------- */
-  .hero{
-    background:var(--sage);
-    overflow:hidden;
-    position:relative;
-    border-bottom:1px solid var(--line);
-  }
-  .hero .wrap{
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:40px;
-    align-items:center;
-    padding-top:72px;
-    padding-bottom:84px;
-  }
-  .eyebrow{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12.5px; font-weight:600;
-    letter-spacing:.06em; text-transform:uppercase;
-    color:var(--olive);
-    background:var(--sage-2);
-    border:1px solid var(--line);
-    padding:7px 14px; border-radius:100px;
-    margin-bottom:22px;
-  }
-  .hero h1{
-    font-size:clamp(38px,5vw,60px);
-    line-height:1.04;
-    font-weight:700;
-    color:var(--ink);
-  }
-  .hero h1 em{
-    font-style:normal;
-    color:var(--olive);
-    position:relative;
-    white-space:nowrap;
-  }
-  .hero h1 em::after{
-    content:'';
-    position:absolute; left:0; right:0; bottom:6px;
-    height:14px; background:var(--lime);
-    z-index:-1; opacity:.7;
-  }
-  .hero p.lead{
-    margin-top:22px;
-    font-size:18px; line-height:1.6;
-    color:var(--ink-70);
-    max-width:520px;
-  }
-  .search-box{
-    margin-top:32px;
-    background:#fff;
-    border:1.5px solid var(--ink);
-    border-radius:100px;
-    display:flex; align-items:center;
-    padding:6px 6px 6px 20px;
-    max-width:520px;
-    box-shadow:var(--shadow);
-  }
-  .search-box input{
-    border:none; outline:none; flex:1;
-    font-family:'Inter',sans-serif; font-size:15px;
-    padding:10px 8px; background:transparent;
-  }
-  .search-box button{
-    border:none; background:var(--ink); color:#fff;
-    padding:12px 22px; border-radius:100px; font-weight:600; font-size:14px;
-    display:flex; align-items:center; gap:6px;
-    transition:background .15s;
-  }
-  .search-box button:hover{background:var(--olive);}
-  .hero-tags{
-    display:flex; flex-wrap:wrap; gap:10px;
-    margin-top:18px;
-  }
-  .hero-tags a{
-    font-size:13px; color:var(--ink-70);
-    background:#fff; border:1px solid var(--line);
-    padding:7px 13px; border-radius:100px;
-    transition:border-color .15s, color .15s;
-  }
-  .hero-tags a:hover{border-color:var(--olive); color:var(--olive);}
-
-  .hero-art{
-    position:relative;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .hero-art svg{width:100%; height:auto; max-width:440px;}
-  .float-card{
-    position:absolute;
-    background:#fff;
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:14px 16px;
-    font-size:13px;
-  }
-  .float-card.price{
-    top:8%; right:2%;
-    text-align:left;
-  }
-  .float-card.price .label{color:var(--ink-50); font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; font-family:'IBM Plex Mono',monospace;}
-  .float-card.price .amount{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; color:var(--ink); margin-top:2px;}
-  .float-card.price .amount span{color:var(--olive); font-size:14px; font-weight:600; margin-left:6px;}
-  .float-card.rating{
-    bottom:6%; left:0%;
-    display:flex; align-items:center; gap:10px;
-  }
-  .stars{color:var(--olive); font-size:13px; letter-spacing:1px;}
-
-  /* ---------- Trust strip ---------- */
-  .trust{
-    border-bottom:1px solid var(--line);
-    background:var(--paper);
-  }
-  .trust .wrap{
-    display:grid; grid-template-columns:repeat(4,1fr);
-    gap:0;
-  }
-  .trust-item{
-    display:flex; align-items:center; gap:14px;
-    padding:34px 20px;
-    border-left:1px solid var(--line);
-  }
-  /* extra breathing room between the trust strip and the section right after it */
-  .trust + section{
-    padding-top:120px;
-  }
-  .trust-item:first-child{border-left:none;}
-  .trust-item .ic{
-    width:38px; height:38px; flex:none;
-    border-radius:10px; background:var(--sage);
-    display:flex; align-items:center; justify-content:center;
-    color:var(--olive);
-  }
-  .trust-item h4{font-size:14.5px; font-weight:600; font-family:'Inter',sans-serif;}
-  .trust-item p{margin:2px 0 0; font-size:13px; color:var(--ink-50);}
-
-  /* ---------- Section shell ---------- */
-  section{padding:88px 0;}
-  .section-head{
-    display:flex; align-items:flex-end; justify-content:space-between;
-    gap:24px; margin-bottom:44px;
-    flex-wrap:wrap;
-  }
-  .section-head .tag{
-    font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:600;
-    letter-spacing:.08em; text-transform:uppercase; color:var(--olive);
-    margin-bottom:10px; display:block;
-  }
-  .section-head h2{font-size:clamp(28px,3.4vw,38px); font-weight:700; max-width:640px;}
-  .section-head p{color:var(--ink-50); font-size:15.5px; max-width:420px;}
-
-  /* ---------- How it works ---------- */
-  .steps{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
-  }
-  .step{
-    background:var(--paper);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:32px 28px;
-    position:relative;
-    transition:border-color .2s, box-shadow .2s, transform .2s;
-  }
-  .step:hover{border-color:var(--lime-dark); box-shadow:var(--shadow); transform:translateY(-3px);}
-  .step .num{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:13px; font-weight:600; color:var(--olive);
-    background:var(--sage); display:inline-block;
-    padding:4px 10px; border-radius:100px; margin-bottom:20px;
-  }
-  .step h3{font-size:19px; font-weight:600; margin-bottom:10px;}
-  .step p{font-size:14.5px; color:var(--ink-70); line-height:1.6; margin:0;}
-
-  /* ---------- Fair price breakdown (signature) ---------- */
-  .price-section{
-    background:var(--ink);
-    color:#fff;
-    border-radius:24px;
-    margin:0 32px;
-    padding:64px 56px;
-  }
-  .price-section .wrap{padding:0; max-width:100%;}
-  .price-grid{
-    display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px; align-items:center;
-  }
-  .price-section .section-head h2{color:#fff;}
-  .price-section .section-head p{color:#B7BDAC;}
-  .price-section .tag{color:var(--lime);}
-  .price-list{list-style:none; margin:28px 0 0; padding:0; display:flex; flex-direction:column; gap:14px;}
-  .price-list li{display:flex; gap:12px; font-size:15px; color:#D9DDCF; align-items:flex-start;}
-  .price-list li svg{flex:none; margin-top:3px; color:var(--lime);}
-
-  .breakdown-card{
-    background:#1D2018;
-    border:1px solid #2C3021;
-    border-radius:16px;
-    padding:32px;
-  }
-  .breakdown-card .prod{
-    display:flex; align-items:center; gap:14px;
-    padding-bottom:22px; margin-bottom:22px;
-    border-bottom:1px dashed #3A3E2E;
-  }
-  .breakdown-card .prod .thumb{
-    width:48px; height:48px; border-radius:10px;
-    background:var(--lime); color:var(--ink);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px;
-  }
-  .breakdown-card .prod .name{font-weight:600; font-size:15.5px; font-family:'Space Grotesk',sans-serif;}
-  .breakdown-card .prod .sub{font-size:12.5px; color:#9BA189; margin-top:2px;}
-  .bd-row{
-    display:flex; align-items:center; justify-content:space-between;
-    font-size:14px; color:#C7CCB8; padding:10px 0;
-  }
-  .bd-row .val{font-family:'IBM Plex Mono',monospace; color:#fff; font-weight:500;}
-  .bd-bar{
-    display:flex; height:14px; border-radius:100px; overflow:hidden; margin:18px 0 20px;
-    border:1px solid #3A3E2E;
-  }
-  .bd-bar span{height:100%;}
-  .bd-bar .seg1{background:var(--lime); width:71%;}
-  .bd-bar .seg2{background:#6E8B0A; width:17%;}
-  .bd-bar .seg3{background:#4A5A08; width:12%;}
-  .bd-total{
-    display:flex; align-items:baseline; justify-content:space-between;
-    padding-top:16px; border-top:1px solid #3A3E2E;
-  }
-  .bd-total .lbl{font-size:14px; color:#C7CCB8;}
-  .bd-total .amt{font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; color:var(--lime);}
-
-  /* ---------- Categories ---------- */
-  .cat-grid{
-    display:grid; grid-template-columns:repeat(5,1fr); gap:18px;
-  }
-  .cat-card{
-    background:var(--sage);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:26px 20px;
-    text-align:left;
-    transition:transform .2s ease, background .2s ease;
-  }
-  .cat-card:hover{background:var(--sage-2); transform:translateY(-3px);}
-  .cat-card .ic{
-    width:44px; height:44px; border-radius:10px;
-    background:#fff; border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center;
-    color:var(--olive); margin-bottom:16px;
-  }
-  .cat-card h4{font-size:15px; font-weight:600; margin-bottom:4px;}
-  .cat-card p{margin:0; font-size:12.5px; color:var(--ink-50);}
-
-  /* ---------- Products ---------- */
-  .filter-row{display:flex; gap:10px; margin-bottom:36px;}
-  .filter-pill{
-    padding:9px 18px; border-radius:100px; font-size:13.5px; font-weight:600;
-    border:1px solid var(--line); background:#fff; color:var(--ink-70);
-    transition:all .15s;
-  }
-  .filter-pill.active{background:var(--ink); color:#fff; border-color:var(--ink);}
-  .filter-pill:hover:not(.active){border-color:var(--olive); color:var(--olive);}
-
-  .product-grid{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:22px;
-  }
-  .product-card{
-    border:1px solid var(--line); border-radius:var(--radius);
-    overflow:hidden; background:#fff;
-    transition:box-shadow .2s ease, transform .2s ease, border-color .2s ease;
-    display:flex; flex-direction:column;
-  }
-  .product-card:hover{box-shadow:var(--shadow); transform:translateY(-3px); border-color:var(--lime-dark);}
-  .product-media{
-    aspect-ratio:1.1/1;
-    background:var(--sage);
-    display:flex; align-items:center; justify-content:center;
-    position:relative;
-  }
-  .product-media img{
-    width:100%; height:100%;
-    object-fit:contain;
-    padding:14px;
-  }
-  .product-media .badge{
-    position:absolute; top:12px; left:12px;
-    background:var(--ink); color:#fff;
-    font-size:11px; font-weight:600; letter-spacing:.03em;
-    padding:5px 10px; border-radius:100px; text-transform:uppercase;
-  }
-  .product-body{padding:18px 18px 20px; display:flex; flex-direction:column; gap:8px; flex:1;}
-  .product-tag{font-size:11px; color:var(--olive); font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.04em;}
-  .product-body h4{font-size:15px; font-weight:600; line-height:1.3;}
-  .product-stars{font-size:12px; color:var(--olive);}
-  .product-footer{
-    display:flex; align-items:center; justify-content:space-between;
-    margin-top:auto; padding-top:10px;
-  }
-  .price-tag{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:15px;}
-  .price-tag .was{
-    text-decoration:line-through; color:var(--ink-50); font-weight:500; font-size:12.5px; margin-right:6px;
-  }
-  .add-btn{
-    width:34px; height:34px; border-radius:50%;
-    background:var(--ink); color:#fff; border:none;
-    display:flex; align-items:center; justify-content:center;
-    transition:background .15s;
-  }
-  .add-btn:hover{background:var(--olive);}
-
-  /* ---------- Services ---------- */
-  .services{
-    display:grid; grid-template-columns:1fr 1fr; gap:24px;
-  }
-  .service-card{
-    border-radius:20px;
-    padding:40px;
-    min-height:260px;
-    display:flex; flex-direction:column; justify-content:flex-end;
-    position:relative; overflow:hidden;
-  }
-  .service-card.a{background:var(--lime); color:var(--ink);}
-  .service-card.b{background:var(--ink); color:#fff;}
-  .service-card .ic{
-    position:static;
-    width:52px; height:52px; border-radius:14px;
-    display:flex; align-items:center; justify-content:center;
-    background:rgba(255,255,255,.35);
-    margin-bottom:18px;
-  }
-  .service-card.b .ic{background:rgba(166,209,8,.16); color:var(--lime);}
-  .service-card h3{font-size:24px; font-weight:700; margin-bottom:8px;}
-  .service-card p{font-size:14.5px; max-width:340px; line-height:1.55; margin:0 0 20px;}
-  .service-card.a p{color:#2E3805;}
-  .service-card.b p{color:#B7BDAC;}
-  .service-link{
-    display:inline-flex; align-items:center; gap:8px;
-    font-weight:600; font-size:14.5px;
+  :root {
+    --black: #0a0908;
+    --rose: #c9a49b;
+    --rose-light: #e8d5d0;
+    --rose-pale: #f5eeec;
+    --cream: #faf7f5;
+    --warm-gray: #8a7f7a;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Jost', sans-serif;
   }
 
-  /* ---------- Testimonial ---------- */
-  .quote-wrap{
-    background:var(--sage);
-    border-radius:24px;
-    padding:64px;
-    text-align:center;
-  }
-  .quote-wrap .stars{justify-content:center; display:flex; margin-bottom:22px; font-size:18px;}
-  .quote-wrap blockquote{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:clamp(22px,2.6vw,30px);
-    font-weight:600; line-height:1.4; max-width:820px; margin:0 auto;
-  }
-  .quote-wrap cite{
-    display:block; margin-top:26px; font-style:normal;
-    font-size:14px; color:var(--ink-50);
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
   }
 
-  /* ---------- Newsletter ---------- */
-  .newsletter{
-    background:var(--olive);
-    color:#fff;
-    border-radius:24px;
-    padding:56px 64px;
-    display:flex; align-items:center; justify-content:space-between;
-    gap:32px;
-    flex-wrap:wrap;
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--rose);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.15s;
+    transform: translate(-50%, -50%);
   }
-  .newsletter h3{font-size:28px; font-weight:700; max-width:420px;}
-  .newsletter p{color:#D3D9C0; margin-top:8px; font-size:14.5px;}
-  .newsletter-form{
-    display:flex; gap:10px; background:#fff; padding:6px; border-radius:100px;
-    flex:none; width:380px; max-width:100%;
+  .cursor-ring {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(201, 164, 155, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.4s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    transform: translate(-50%, -50%);
   }
-  .newsletter-form input{
-    flex:1; border:none; outline:none; padding:12px 16px; border-radius:100px; font-family:'Inter';font-size:14.5px;
-  }
-  .newsletter-form button{
-    background:var(--lime); color:var(--ink); border:none;
-    padding:12px 22px; border-radius:100px; font-weight:600; font-size:14px;
-    transition:background .15s;
-  }
-  .newsletter-form button:hover{background:var(--lime-dark);}
+  body:hover .cursor { opacity: 1; }
 
-  /* ---------- Footer ---------- */
-  footer{background:var(--ink); color:#B7BDAC; padding-top:72px;}
-  .footer-grid{
-    display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:40px;
-    padding-bottom:56px; border-bottom:1px solid #262A1E;
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    mix-blend-mode: normal;
+    transition: background 0.4s;
   }
-  .footer-logo img{height:38px; filter:brightness(0) invert(1);}
-  .footer-about p{font-size:14px; line-height:1.7; margin-top:16px; max-width:280px; color:#9BA189;}
-  .footer-social{display:flex; gap:12px; margin-top:20px;}
-  .footer-social a{
-    width:36px; height:36px; border-radius:50%; border:1px solid #33372A;
-    display:flex; align-items:center; justify-content:center;
-    transition:background .15s, border-color .15s;
-  }
-  .footer-social a:hover{background:var(--lime); color:var(--ink); border-color:var(--lime);}
-  footer h5{
-    font-family:'IBM Plex Mono',monospace; font-size:12.5px; text-transform:uppercase;
-    letter-spacing:.06em; color:#fff; margin-bottom:20px; font-weight:600;
-  }
-  footer ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; font-size:14.5px;}
-  footer ul a{color:#B7BDAC; transition:color .15s;}
-  footer ul a:hover{color:var(--lime);}
-  .footer-contact li{display:flex; gap:10px; align-items:flex-start; font-size:14px; color:#B7BDAC; line-height:1.5;}
-  .footer-contact svg{flex:none; margin-top:3px; color:var(--lime);}
-  .footer-bottom{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:24px 0; font-size:13px; color:#7D8370; flex-wrap:wrap; gap:12px;
-  }
-  .footer-bottom .pay{display:flex; gap:8px; align-items:center;}
-  .footer-bottom .pay span{
-    border:1px solid #33372A; border-radius:6px; padding:4px 8px; font-size:11px; font-family:'IBM Plex Mono',monospace;
-  }
+  nav.scrolled { background: rgba(10,9,8,0.85); backdrop-filter: blur(12px); }
 
-  /* ---------- Responsive ---------- */
-  @media(max-width:1080px){
-    .price-grid{grid-template-columns:1fr;}
-    .cat-grid{grid-template-columns:repeat(3,1fr);}
-    .product-grid{grid-template-columns:repeat(2,1fr);}
-    .trust .wrap{grid-template-columns:repeat(2,1fr);}
-    .trust-item:nth-child(3){border-left:none;}
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--cream);
+    text-decoration: none;
   }
-  @media(max-width:860px){
-    .nav-links, .topbar-right .topbar-social, .hero-tags{display:none;}
-    .menu-toggle{display:flex; align-items:center;}
-    .hero .wrap{grid-template-columns:1fr; padding-top:44px;}
-    .hero-art{order:-1; max-width:280px; margin:0 auto 12px;}
-    .steps{grid-template-columns:1fr;}
-    .services{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:1fr 1fr; row-gap:36px;}
-    .price-section{padding:44px 24px; margin:0 16px;}
-    .newsletter{padding:40px 28px; flex-direction:column; text-align:center; align-items:flex-start;}
-    .quote-wrap{padding:40px 24px;}
-    .trust + section{padding-top:64px;}
-    #services, section[style*="padding-top:120px"]{padding-top:56px !important;}
-    section[style*="padding-bottom:130px"]{padding-bottom:64px !important;}
+  .nav-logo span { color: var(--rose); }
+
+  .nav-links {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
   }
-  @media(max-width:560px){
-    .wrap{padding:0 20px;}
-    .cat-grid{grid-template-columns:repeat(2,1fr);}
-    .product-grid{grid-template-columns:1fr 1fr;}
-    .footer-grid{grid-template-columns:1fr;}
-    .footer-bottom{flex-direction:column; align-items:flex-start;}
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(250,247,245,0.7);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--rose); }
+
+  /* HERO */
+  #hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 700px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* reveal-on-scroll */
-  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
-  .reveal.in{opacity:1; transform:none;}
-  @media (prefers-reduced-motion: reduce){
-    .reveal{opacity:1; transform:none; transition:none;}
-    html{scroll-behavior:auto;}
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 9vw, 9rem);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeUp 1.2s 0.9s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--rose-light);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: rgba(250,247,245,0.55);
+    margin-top: 2rem;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s 1.3s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 3.5rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 1s 1.6s forwards;
+    pointer-events: all;
+  }
+
+  .btn-primary {
+    background: var(--rose);
+    color: var(--black);
+    border: none;
+    padding: 1rem 2.8rem;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: none;
+    transition: background 0.3s, transform 0.3s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--rose-light); transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid rgba(250,247,245,0.3);
+    padding: 1rem 2.8rem;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: none;
+    transition: border-color 0.3s, color 0.3s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--rose); color: var(--rose); }
+
+  /* BLEND TRANSITION */
+  .blend-transition {
+    position: relative;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, var(--cream));
+    margin-top: -200px;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* MARQUEE */
+  .marquee-strip {
+    background: var(--rose);
+    padding: 0.9rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-flex;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-inner span {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--black);
+    letter-spacing: 0.05em;
+    padding: 0 2.5rem;
+  }
+  .marquee-inner span.dot { font-style: normal; font-size: 0.4rem; vertical-align: middle; }
+
+  /* COLLECTIONS */
+  #collections {
+    background: var(--cream);
+    padding: 8rem 4rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+
+  .section-label {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    color: var(--black);
+    line-height: 1.05;
+  }
+  .section-title em { font-style: italic; color: var(--rose); }
+
+  .section-link {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+    border-bottom: 1px solid var(--black);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .section-link:hover { color: var(--rose); border-color: var(--rose); }
+
+  .collections-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-rows: 540px 400px;
+    gap: 1.5rem;
+  }
+
+  .collection-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--rose-pale);
+    cursor: none;
+  }
+
+  .collection-card:first-child {
+    grid-row: 1 / 3;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: block;
+  }
+  .collection-card:hover .card-img { transform: scale(1.05); }
+
+  /* Placeholder images using CSS art */
+  .card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    background: linear-gradient(160deg, var(--rose-pale) 0%, var(--rose-light) 60%, var(--rose) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-placeholder::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 60%;
+    height: 80%;
+    border-radius: 50% 30% 60% 40%;
+    background: rgba(201,164,155,0.3);
+    transition: transform 0.7s;
+  }
+  .collection-card:hover .card-placeholder::before { transform: scale(1.1) rotate(5deg); }
+
+  .card-placeholder.dark {
+    background: linear-gradient(160deg, #1a1615 0%, #2d2220 60%, #3d2e2b 100%);
+  }
+  .card-placeholder.dark::before { background: rgba(201,164,155,0.15); }
+
+  .card-info {
+    position: relative;
+    z-index: 2;
+  }
+
+  .card-tag {
+    font-family: var(--font-body);
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(250,247,245,0.6);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .card-placeholder:not(.dark) .card-tag { color: rgba(10,9,8,0.5); }
+
+  .card-name {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.1;
+  }
+  .card-placeholder:not(.dark) .card-name { color: var(--black); }
+
+  .card-price {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--rose);
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,9,8,0);
+    transition: background 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .collection-card:hover .card-overlay { background: rgba(0,0,0,0.20); }
+
+  .collection-card .card-info {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 2;
+  }
+  .collection-card .card-tag { color: rgba(250,247,245,0.7); }
+  .collection-card .card-name { color: var(--cream); text-shadow: 0 1px 8px rgba(10,9,8,0.5); }
+  .collection-card .card-price { color: var(--rose-light); }
+
+  .card-btn {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s 0.05s, transform 0.3s 0.05s;
+    background: var(--rose);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.8rem 2rem;
+    border: none;
+    cursor: none;
+    text-decoration: none;
+  }
+  .collection-card:hover .card-btn { opacity: 1; transform: translateY(0); }
+
+  /* ABOUT */
+  #about {
+    background: var(--black);
+    padding: 9rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+    height: 600px;
+  }
+
+  .about-img-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70%;
+    height: 80%;
+    background: linear-gradient(135deg, #2d2220 0%, #1a1615 50%, #3d2e2b 100%);
+    overflow: hidden;
+  }
+  .about-img-main::after {
+    content: '';
+    position: absolute;
+    bottom: -5%;
+    left: -5%;
+    width: 80%;
+    height: 100%;
+    border-radius: 40% 60% 50% 70%;
+    background: rgba(201,164,155,0.12);
+  }
+
+  .about-img-accent {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 55%;
+    height: 55%;
+    background: var(--rose);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+  }
+
+  .about-accent-text {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(10,9,8,0.25);
+    line-height: 1;
+  }
+
+  .about-year {
+    position: absolute;
+    bottom: 55%;
+    right: 55%;
+    transform: translate(50%, 50%);
+    background: var(--black);
+    border: 1px solid rgba(201,164,155,0.3);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+  }
+  .about-year span:first-child {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--rose);
+  }
+  .about-year span:last-child {
+    font-family: var(--font-body);
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    color: var(--warm-gray);
+    text-transform: uppercase;
+  }
+
+  .about-text .section-label { color: var(--rose); }
+  .about-text .section-title { color: var(--cream); margin-bottom: 2rem; }
+
+  .about-body {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.95;
+    color: rgba(250,247,245,0.6);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    border-top: 1px solid rgba(250,247,245,0.08);
+    padding-top: 2.5rem;
+  }
+
+  .stat {
+    text-align: center;
+    border-right: 1px solid rgba(250,247,245,0.08);
+    padding: 0 1.5rem;
+  }
+  .stat:last-child { border-right: none; }
+  .stat:first-child { padding-left: 0; text-align: left; }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--rose);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-top: 0.4rem;
+  }
+
+  /* FEATURED PIECES */
+  #pieces {
+    background: var(--cream);
+    padding: 8rem 4rem;
+  }
+
+  .pieces-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 4rem;
+  }
+
+  .piece-card {
+    cursor: none;
+    group: true;
+  }
+
+  .piece-img {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: var(--rose-pale);
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .piece-img-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    position: relative;
+  }
+  .piece-card:hover .piece-img-inner { transform: scale(1.04); }
+  .piece-img img { width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .piece-card:hover .piece-img img { transform: scale(1.04); }
+  .piece-img::after { content:''; position:absolute; inset:0; background:rgba(0,0,0,0); transition: background 0.4s; pointer-events:none; }
+  .piece-card:hover .piece-img::after { background: rgba(0,0,0,0.20); }
+
+  .piece-num {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    color: rgba(10,9,8,0.3);
+    font-weight: 400;
+  }
+
+  .piece-palette {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .p1 { background: linear-gradient(170deg, #d4b5ae 0%, #b8918a 40%, #9a6e66 100%); }
+  .p2 { background: linear-gradient(170deg, #1a1615 0%, #2d2220 50%, #4a3530 100%); }
+  .p3 { background: linear-gradient(170deg, #e8d5d0 0%, #d4b5ae 50%, #c9a49b 100%); }
+  .p4 { background: linear-gradient(170deg, #2d2220 0%, #3d2e2b 50%, #1a1615 100%); }
+
+  .piece-info { position: relative; z-index: 2; }
+
+  .piece-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--black);
+    margin-bottom: 0.3rem;
+  }
+
+  .piece-category {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+  }
+
+  .piece-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8rem;
+  }
+
+  .piece-price {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--black);
+  }
+
+  .piece-add {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--black);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: none;
+    transition: background 0.3s, border-color 0.3s;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--black);
+    text-decoration: none;
+  }
+  .piece-add:hover { background: var(--black); color: var(--cream); }
+
+  /* PROCESS */
+  #process {
+    background: var(--black);
+    padding: 8rem 4rem;
+  }
+
+  .process-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .process-inner .section-title { color: var(--cream); }
+  .process-inner .section-label { color: var(--rose); }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-top: 5rem;
+    text-align: left;
+  }
+
+  .step {
+    border-top: 1px solid rgba(250,247,245,0.1);
+    padding-top: 2rem;
+  }
+
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: rgba(201,164,155,0.2);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+  }
+
+  .step-body {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    line-height: 1.85;
+    color: rgba(250,247,245,0.45);
+  }
+
+  /* TESTIMONIAL */
+  #testimonial {
+    background: var(--rose);
+    padding: 7rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .testimonial-inner { max-width: 800px; }
+
+  .quote-mark {
+    font-family: var(--font-display);
+    font-size: 8rem;
+    line-height: 0.5;
+    color: rgba(10,9,8,0.1);
+    margin-bottom: 1.5rem;
+  }
+
+  .testimonial-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--black);
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+
+  .testimonial-author {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(10,9,8,0.55);
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--cream);
+    padding: 8rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-text .section-title { color: var(--black); margin-bottom: 1.5rem; }
+
+  .contact-detail {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-item label {
+    font-family: var(--font-body);
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .contact-item a, .contact-item p {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .contact-item a:hover { color: var(--rose); }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .form-group label {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(10,9,8,0.2);
+    padding: 0.8rem 0;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--black);
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--rose); }
+
+  .form-group textarea { resize: none; height: 100px; }
+  .form-group select { cursor: none; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .form-submit {
+    margin-top: 1rem;
+    background: var(--black);
+    color: var(--cream);
+    border: none;
+    padding: 1.1rem 3rem;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.3s;
+    align-self: flex-start;
+  }
+  .form-submit:hover { background: var(--rose); color: var(--black); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    padding: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(250,247,245,0.06);
+  }
+
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--cream);
+  }
+  .footer-logo span { color: var(--rose); }
+
+  .footer-copy {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: rgba(250,247,245,0.3);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 2rem;
+  }
+  .footer-social a {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(250,247,245,0.4);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-social a:hover { color: var(--rose); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 0.15s; }
+  .reveal.delay-2 { transition-delay: 0.3s; }
+  .reveal.delay-3 { transition-delay: 0.45s; }
+
+  /* ── HAMBURGER ─────────────────────────────────────────────────────────── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 110;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--cream);
+    transition: all 0.3s;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* ── PIECES CAROUSEL ───────────────────────────────────────────────────── */
+  .piece-card {
+    cursor: none;
+    display: flex;
+    flex-direction: column;
+  }
+  .piece-footer {
+    margin-top: auto;
+  }
+  .piece-name, .piece-category {
+    min-height: 1.2em;
+  }
+
+  /* ── TABLET: 768px–1024px ──────────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    nav { padding: 1.5rem 2.5rem; }
+
+    #collections { padding: 5rem 2.5rem; }
+
+    .collections-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 380px 300px 300px;
+    }
+    .collection-card:first-child {
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
+    }
+
+    #about {
+      grid-template-columns: 1fr;
+      padding: 5rem 2.5rem;
+      gap: 3rem;
+    }
+    .about-visual { height: 380px; }
+
+    #pieces { padding: 5rem 2.5rem; }
+    .pieces-grid { grid-template-columns: repeat(2, 1fr); }
+
+    #process { padding: 5rem 2.5rem; }
+
+    #contact {
+      grid-template-columns: 1fr;
+      padding: 5rem 2.5rem;
+      gap: 3rem;
+    }
+
+    footer { padding: 3rem 2.5rem; }
+  }
+
+  /* ── MOBILE: max 767px ─────────────────────────────────────────────────── */
+  @media (max-width: 767px) {
+
+    /* Cursor off on touch */
+    .cursor, .cursor-ring { display: none; }
+    body { cursor: auto; }
+    a, button { cursor: pointer; }
+
+    /* NAV */
+    nav {
+      padding: 1.2rem 1.5rem;
+    }
+    .nav-logo { font-size: 1.3rem; }
+    .hamburger { display: flex; }
+
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,9,8,0.97);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      z-index: 105;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a {
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+    }
+
+    /* HERO */
+    #hero { min-height: 100svh; }
+    .hero-content { padding: 0 1.5rem; width: 100%; }
+    .hero-eyebrow { font-size: clamp(0.5rem, 2.5vw, 0.65rem); letter-spacing: 0.2em; margin-bottom: 1rem; }
+    .hero-title { font-size: clamp(3rem, 14vw, 5rem); }
+    .hero-subtitle { font-size: clamp(0.55rem, 2.5vw, 0.75rem); margin-top: 1.2rem; letter-spacing: 0.15em; }
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+    .btn-primary, .btn-ghost {
+      width: clamp(200px, 70vw, 280px);
+      text-align: center;
+      padding: 0.85rem 1.5rem;
+      font-size: clamp(0.55rem, 2.5vw, 0.65rem);
+    }
+
+    /* BLEND */
+    .blend-transition { height: 120px; margin-top: -120px; }
+
+    /* COLLECTIONS */
+    #collections { padding: 4rem 1.5rem; }
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .section-title { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+
+    .collections-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 1rem;
+    }
+    .collection-card:first-child {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .collection-card {
+      height: 320px;
+    }
+
+    /* ABOUT */
+    #about {
+      grid-template-columns: 1fr;
+      padding: 4rem 1.5rem;
+      gap: 3rem;
+    }
+    .about-visual { height: 300px; }
+    .about-stats { grid-template-columns: repeat(3,1fr); }
+    .stat { padding: 0 0.8rem; }
+    .stat-num { font-size: 1.8rem; }
+
+    /* FEATURED PIECES — horizontal carousel */
+    #pieces { padding: 4rem 0 4rem 1.5rem; overflow: hidden; }
+    #pieces > .reveal { padding-right: 1.5rem; }
+    .pieces-grid {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-right: 1.5rem;
+      padding-bottom: 1rem;
+      scrollbar-width: none;
+    }
+    .pieces-grid::-webkit-scrollbar { display: none; }
+    .piece-card {
+      flex: 0 0 72vw;
+      max-width: 280px;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+    }
+    .piece-img { aspect-ratio: 3/4; }
+    .piece-name {
+      font-size: 0.9rem;
+      min-height: 2.4em;
+      display: flex;
+      align-items: flex-end;
+    }
+    .piece-category {
+      font-size: 0.55rem;
+      min-height: 1.4em;
+    }
+    .piece-footer { margin-top: auto; padding-top: 0.5rem; }
+    .piece-price { font-size: 0.8rem; }
+
+    /* PROCESS */
+    #process { padding: 4rem 1.5rem; }
+    .process-inner { max-width: 100%; }
+    .process-steps {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .step-num { font-size: 2.5rem; }
+    .step-title { font-size: 1rem; }
+    .step-body { font-size: 0.8rem; }
+
+    /* TESTIMONIAL */
+    #testimonial { padding: 4rem 1.5rem; }
+    .quote-mark { font-size: 5rem; }
+    .testimonial-text { font-size: clamp(1.2rem, 4.5vw, 1.8rem); }
+    .testimonial-author { font-size: 0.6rem; }
+
+    /* CONTACT */
+    #contact {
+      grid-template-columns: 1fr;
+      padding: 4rem 1.5rem;
+      gap: 3rem;
+    }
+    .form-row { grid-template-columns: 1fr; gap: 1rem; }
+    .form-submit { width: 100%; text-align: center; padding: 1rem; }
+    .contact-item a, .contact-item p { font-size: 0.95rem; }
+
+    /* FOOTER */
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 2.5rem 1.5rem;
+    }
+    .footer-copy { order: 3; font-size: 0.55rem; }
+    .footer-social { gap: 1.5rem; }
+    .footer-social a { font-size: 0.6rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- Topbar -->
-<div class="topbar">
-  <div class="wrap">
-    <div class="topbar-left"><span class="dot"></span> Express delivery across Lagos</div>
-    <div class="topbar-right">
-      <a href="tel:+2347070248373">(+234) 707 024 8373</a>
-      <a href="https://medexa-ng.com/demo/contact">Contact</a>
-      <div class="topbar-social">
-        <a href="https://www.tiktok.com/@medexa.healthcare" aria-label="TikTok">TikTok</a>
-        <a href="https://www.instagram.com/medexa.healthcare/" aria-label="Instagram">Instagram</a>
-        <a href="https://www.facebook.com/share/1KWmiSVeLd/" aria-label="Facebook">Facebook</a>
-      </div>
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Drape<span>.</span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#collections" onclick="closeMenu()">Collections</a></li>
+    <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#pieces" onclick="closeMenu()">Pieces</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Order</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Hero Section -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Lagos · Ready-to-Wear · SS 2026</p>
+    <h1 class="hero-title">Drape<br><em>Lagos</em></h1>
+    <p class="hero-subtitle">Dressed for the woman who moves the city</p>
+    <div class="hero-cta">
+      <a href="#collections" class="btn-primary">View Collections</a>
+      <a href="#contact" class="btn-ghost">Place an Order</a>
     </div>
+  </div>
+</section>
+
+<!-- Blend transition -->
+<div class="blend-transition"></div>
+
+<!-- Marquee -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Ready-to-Wear</span><span class="dot">●</span>
+    <span>Office Dressing</span><span class="dot">●</span>
+    <span>Semi-Formal</span><span class="dot">●</span>
+    <span>Made for Lagos</span><span class="dot">●</span>
+    <span>Drape Lagos</span><span class="dot">●</span>
+    <span>Ready-to-Wear</span><span class="dot">●</span>
+    <span>Office Dressing</span><span class="dot">●</span>
+    <span>Semi-Formal</span><span class="dot">●</span>
+    <span>Made for Lagos</span><span class="dot">●</span>
+    <span>Drape Lagos</span><span class="dot">●</span>
+    <span>Ready-to-Wear</span><span class="dot">●</span>
+    <span>Office Dressing</span><span class="dot">●</span>
+    <span>Semi-Formal</span><span class="dot">●</span>
+    <span>Made for Lagos</span><span class="dot">●</span>
+    <span>Drape Lagos</span><span class="dot">●</span>
   </div>
 </div>
 
-<!-- Header -->
-<header class="site">
-  <div class="wrap nav">
-    <a href="#" class="logo">
-      <img src="https://medexa-ng.com/demo/wp-content/uploads/2025/11/medexa-logo.png" alt="Medexa Healthcare logo">
-    </a>
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#categories">Shop</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="https://medexa-ng.com/demo/contact">Contact</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button class="icon-btn" aria-label="Search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      </button>
-      <a href="https://wa.me/2347070248373" class="btn btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Chat a pharmacist
-      </a>
-      <div class="cart-pill">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        0 · ₦0.00
-      </div>
-      <button class="menu-toggle" aria-label="Menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-    </div>
-  </div>
-</header>
-
-<!-- Hero -->
-<section class="hero" style="padding:0;">
-  <div class="wrap">
+<!-- Collections -->
+<section id="collections">
+  <div class="section-header reveal">
     <div>
-      <span class="eyebrow">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
-        Licensed Nigerian pharmacy
-      </span>
-      <h1>Trusted care, <em>honestly priced.</em></h1>
-      <p class="lead">Medexa is a haven for safe and effective medicines — real pharmacists, verified stock, and prices you can actually see the makeup of. No inflated margins, no guesswork.</p>
+      <p class="section-label">Our Collections</p>
+      <h2 class="section-title">Curated for<br><em>Every Scene</em></h2>
+    </div>
+    <a href="#pieces" class="section-link">Explore All Pieces</a>
+  </div>
 
-      <form class="search-box" onsubmit="return false;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A4D48" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="Search medicines — e.g. Vitamin C, Gaviscon...">
-        <button type="submit">Search</button>
-      </form>
-      <div class="hero-tags">
-        <a href="#categories">Pain management</a>
-        <a href="#categories">Mother &amp; child</a>
-        <a href="#categories">Diabetes care</a>
-        <a href="#categories">Sexual health</a>
+  <div class="collections-grid">
+    <div class="collection-card reveal">
+      <img src="https://i.pinimg.com/1200x/eb/0c/8e/eb0c8e7809db5f9148c3dbbba9a10cca.jpg" alt="The Evening Edit" class="card-img">
+      <div class="card-overlay"><a href="#contact" class="card-btn">Shop Now</a></div>
+      <div class="card-info" style="position:absolute;bottom:2rem;left:2rem;z-index:2;">
+        <span class="card-tag">Signature</span>
+        <div class="card-name">The Evening<br>Edit</div>
+        <div class="card-price">From ₦45,000</div>
       </div>
     </div>
 
-    <div class="hero-art">
-      <svg viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="210" cy="210" r="190" fill="#EBF1D9"/>
-        <rect x="130" y="90" width="160" height="240" rx="32" fill="#FFFFFF" stroke="#3F4C08" stroke-width="3"/>
-        <rect x="130" y="90" width="160" height="80" rx="32" fill="#A6D108"/>
-        <rect x="130" y="146" width="160" height="24" fill="#A6D108"/>
-        <line x1="170" y1="230" x2="250" y2="230" stroke="#3F4C08" stroke-width="6" stroke-linecap="round"/>
-        <line x1="210" y1="190" x2="210" y2="270" stroke="#3F4C08" stroke-width="6" stroke-linecap="round"/>
-        <circle cx="330" cy="120" r="26" fill="#3F4C08"/>
-        <circle cx="330" cy="120" r="26" fill="#3F4C08" fill-opacity="0.9"/>
-        <circle cx="70" cy="300" r="18" fill="#A6D108"/>
-        <circle cx="340" cy="300" r="10" fill="#87AC07"/>
-      </svg>
-      <div class="float-card price">
-        <div class="label">Fair price</div>
-        <div class="amount">₦59.99 <span>−8%</span></div>
+    <div class="collection-card reveal delay-1">
+      <img src="https://i.pinimg.com/736x/90/64/01/906401e595c6f4246bdbf49abffc1279.jpg" alt="Office Hours" class="card-img">
+      <div class="card-overlay"><a href="#contact" class="card-btn">Shop Now</a></div>
+      <div class="card-info" style="position:absolute;bottom:2rem;left:2rem;z-index:2;">
+        <span class="card-tag">New In</span>
+        <div class="card-name">Office Hours</div>
+        <div class="card-price">From ₦32,000</div>
       </div>
-      <div class="float-card rating">
-        <span class="stars">★★★★★</span>
-        <span style="color:#4A4D48;">4.9 · 2,300+ orders</span>
+    </div>
+
+    <div class="collection-card reveal delay-2">
+      <img src="https://i.pinimg.com/736x/9b/4e/22/9b4e22696e75299cc568e0a7daeeccd9.jpg" alt="Weekend Luxe" class="card-img">
+      <div class="card-overlay"><a href="#contact" class="card-btn">Shop Now</a></div>
+      <div class="card-info" style="position:absolute;bottom:2rem;left:2rem;z-index:2;">
+        <span class="card-tag">Bestseller</span>
+        <div class="card-name">Weekend<br>Luxe</div>
+        <div class="card-price">From ₦28,000</div>
+      </div>
+    </div>
+
+    <div class="collection-card reveal delay-1">
+      <img src="https://i.pinimg.com/736x/1f/2c/db/1f2cdbae2f7e5930e330a8596a5f2b62.jpg" alt="Formal Affairs" class="card-img">
+      <div class="card-overlay"><a href="#contact" class="card-btn">Shop Now</a></div>
+      <div class="card-info" style="position:absolute;bottom:2rem;left:2rem;z-index:2;">
+        <span class="card-tag">Limited</span>
+        <div class="card-name">Formal<br>Affairs</div>
+        <div class="card-price">From ₦55,000</div>
+      </div>
+    </div>
+
+    <div class="collection-card reveal delay-2">
+      <img src="https://i.pinimg.com/736x/61/72/f4/6172f413e688af81ba151d2f600d0d0f.jpg" alt="The Rose Series" class="card-img">
+      <div class="card-overlay"><a href="#contact" class="card-btn">Shop Now</a></div>
+      <div class="card-info" style="position:absolute;bottom:2rem;left:2rem;z-index:2;">
+        <span class="card-tag">Occasion</span>
+        <div class="card-name">The Rose<br>Series</div>
+        <div class="card-price">From ₦38,000</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Trust strip -->
-<div class="trust">
-  <div class="wrap">
-    <div class="trust-item">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6z"/><path d="m9 12 2 2 4-4"/></svg></div>
-      <div><h4>Verified medicines</h4><p>Every batch checked</p></div>
+<!-- About -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-img-main"></div>
+    <div class="about-img-accent">
+      <div class="about-accent-text">Lagos</div>
     </div>
-    <div class="trust-item">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-      <div><h4>Express delivery</h4><p>Same-day in Lagos</p></div>
-    </div>
-    <div class="trust-item">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h9"/><path d="m16 19 2 2 4-4"/></svg></div>
-      <div><h4>Licensed pharmacists</h4><p>On-call for advice</p></div>
-    </div>
-    <div class="trust-item">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
-      <div><h4>Secure payment</h4><p>Pay on delivery or card</p></div>
+    <div class="about-year">
+      <span>2021</span>
+      <span>Est.</span>
     </div>
   </div>
-</div>
 
-<!-- How it works -->
-<section class="wrap reveal">
-  <div class="section-head">
-    <div>
-      <span class="tag">How Medexa works</span>
-      <h2>From search to your doorstep, in three steps.</h2>
-    </div>
-    <p>No pharmacy queues. No back-and-forth. Just tell us what you need.</p>
-  </div>
-  <div class="steps">
-    <div class="step">
-      <span class="num">01</span>
-      <h3>Search &amp; order</h3>
-      <p>Find your medicine by name or condition, or send a photo of your prescription straight to a pharmacist on WhatsApp.</p>
-    </div>
-    <div class="step">
-      <span class="num">02</span>
-      <h3>Verified &amp; dispensed</h3>
-      <p>A licensed pharmacist checks the order, confirms stock, and packs it — every item traceable back to its source.</p>
-    </div>
-    <div class="step">
-      <span class="num">03</span>
-      <h3>Delivered fast</h3>
-      <p>Express riders get it to you the same day across Lagos, with nationwide delivery for everywhere else.</p>
-    </div>
-  </div>
-</section>
+  <div class="about-text">
+    <p class="section-label reveal">Our Story</p>
+    <h2 class="section-title reveal">Clothes that carry<br><em>your authority</em></h2>
+    <p class="about-body reveal delay-1">
+      Drape Lagos was born from a simple conviction: the working women of Lagos deserve clothes that match their ambition. Not pieces imported for a different climate, a different body, a different life — but fashion that understands early mornings, long meetings, and dinner plans that don't cancel themselves.
+    </p>
+    <p class="about-body reveal delay-2">
+      Every piece is designed with the modern Lagos professional in mind. Clean lines, luxurious fabrics, silhouettes that move the way you do. Expensive-looking, yes — but made for real life.
+    </p>
 
-<!-- Fair price breakdown (signature) -->
-<section style="padding:32px 0 88px;">
-  <div class="price-section reveal">
-    <div class="section-head" style="margin-bottom:0;">
-      <div style="max-width:600px;">
-        <span class="tag">Our pricing model</span>
-        <h2>Every price, broken down — no hidden margin.</h2>
+    <div class="about-stats reveal delay-3">
+      <div class="stat">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Women Styled</div>
       </div>
-    </div>
-    <div class="price-grid" style="margin-top:36px;">
-      <div>
-        <p style="color:#B7BDAC; font-size:15.5px; line-height:1.7; max-width:440px;">Most pharmacies mark up medicine and never say by how much. Medexa shows the actual cost of your medicine, our handling fee, and delivery — added up, not hidden.</p>
-        <ul class="price-list">
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Cost price sourced directly from manufacturers &amp; licensed distributors</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> A small, fixed pharmacy handling fee — the same on every order</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Flat delivery cost, shown before you check out</li>
-        </ul>
+      <div class="stat">
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Active Styles</div>
       </div>
-      <div class="breakdown-card">
-        <div class="prod">
-          <div class="thumb">VP</div>
-          <div>
-            <div class="name">Vision Plus</div>
-            <div class="sub">Eye &amp; ear care · 30 tablets</div>
-          </div>
-        </div>
-        <div class="bd-row"><span>Cost of medicine</span><span class="val">₦42.60</span></div>
-        <div class="bd-row"><span>Pharmacy handling</span><span class="val">₦10.19</span></div>
-        <div class="bd-row"><span>Delivery</span><span class="val">₦7.20</span></div>
-        <div class="bd-bar"><span class="seg1"></span><span class="seg2"></span><span class="seg3"></span></div>
-        <div class="bd-total">
-          <span class="lbl">You pay</span>
-          <span class="amt">₦59.99</span>
-        </div>
+      <div class="stat">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Customer Rating</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Categories -->
-<section class="wrap reveal" id="categories">
-  <div class="section-head">
-    <div>
-      <span class="tag">Shop by category</span>
-      <h2>Everything your household medicine cabinet needs.</h2>
-    </div>
-    <a href="https://medexa-ng.com/demo/shop/" class="btn btn-ghost">Browse full shop</a>
+<!-- Pieces -->
+<section id="pieces">
+  <div class="reveal">
+    <p class="section-label">Current Season</p>
+    <h2 class="section-title" style="color: var(--black);">Featured <em>Pieces</em></h2>
   </div>
-  <div class="cat-grid">
-    <a href="https://medexa-ng.com/demo/product-category/medicines/" class="cat-card">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></div>
-      <h4>Medicines</h4>
-      <p>Pain, asthma, infection care</p>
-    </a>
-    <a href="https://medexa-ng.com/demo/product-category/mother-child-care/" class="cat-card">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
-      <h4>Mother &amp; Child Care</h4>
-      <p>Baby &amp; children's health</p>
-    </a>
-    <a href="https://medexa-ng.com/demo/product-category/health-care/" class="cat-card">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-      <h4>Health Care</h4>
-      <p>Vitamins, aids &amp; wellness</p>
-    </a>
-    <a href="https://medexa-ng.com/demo/product-category/personal-care-beauty/" class="cat-card">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
-      <h4>Personal Care &amp; Beauty</h4>
-      <p>Hair, oral &amp; sun care</p>
-    </a>
-    <a href="https://medexa-ng.com/demo/product-category/sexual-health/" class="cat-card">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
-      <h4>Sexual Health</h4>
-      <p>Women's &amp; men's care</p>
-    </a>
-  </div>
-</section>
 
-<!-- Best sellers -->
-<section class="wrap reveal" style="padding-top:120px;">
-  <div class="section-head">
-    <div>
-      <span class="tag">Best sellers</span>
-      <h2>What Lagos is restocking this week.</h2>
-    </div>
-  </div>
-  <div class="filter-row">
-    <button class="filter-pill active">All</button>
-    <button class="filter-pill">Medicines</button>
-    <button class="filter-pill">Weekly deals</button>
-  </div>
-  <div class="product-grid">
-
-    <div class="product-card">
-      <div class="product-media">
-        <img src="https://medexa-ng.com/demo/wp-content/uploads/2019/02/37-Postinor-2.jpg" alt="Postinor 2" loading="lazy">
+  <div class="pieces-grid">
+    <div class="piece-card reveal">
+      <div class="piece-img">
+        <img src="https://i.pinimg.com/1200x/8a/36/15/8a361516a81e4fb8b1babd457aee12a7.jpg" alt="Vintage Suit" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <span class="piece-num">01</span>
       </div>
-      <div class="product-body">
-        <span class="product-tag">Health care</span>
-        <h4>Postinor 2</h4>
-        <div class="product-footer">
-          <span class="price-tag">₦15.99</span>
-          <button class="add-btn" aria-label="Add to cart">+</button>
-        </div>
+      <div class="piece-name">Vintage Suit</div>
+      <div class="piece-category">Office · Formal</div>
+      <div class="piece-footer">
+        <span class="piece-price">₦48,000</span>
+        <a href="#contact" class="piece-add">+</a>
       </div>
     </div>
 
-    <div class="product-card">
-      <div class="product-media">
-        <img src="https://medexa-ng.com/demo/wp-content/uploads/2019/02/31-VitaminStore-Vitamin-C.jpg" alt="VitaminStore Vitamin C effervescent" loading="lazy">
+    <div class="piece-card reveal delay-1">
+      <div class="piece-img">
+        <img src="https://i.pinimg.com/1200x/f5/4a/9a/f54a9a191c7f3be6044eeeab2d3ee1de.jpg" alt="Drape-sleeve midi dress" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <span class="piece-num">02</span>
       </div>
-      <div class="product-body">
-        <span class="product-tag">Health care</span>
-        <h4>VitaminStore Vitamin C (effervescent)</h4>
-        <span class="product-stars">★★★★★ 5.0</span>
-        <div class="product-footer">
-          <span class="price-tag">₦129.78</span>
-          <button class="add-btn" aria-label="Add to cart">+</button>
-        </div>
+      <div class="piece-name">Drape-sleeve midi dress</div>
+      <div class="piece-category">Semi-Formal · Day-to-Night</div>
+      <div class="piece-footer">
+        <span class="piece-price">₦35,000</span>
+        <a href="#contact" class="piece-add">+</a>
       </div>
     </div>
 
-    <div class="product-card">
-      <div class="product-media">
-        <img src="https://medexa-ng.com/demo/wp-content/uploads/2019/02/30-Gaviscon-scaled.jpeg" alt="Gaviscon" loading="lazy">
+    <div class="piece-card reveal delay-2">
+      <div class="piece-img">
+        <img src="https://i.pinimg.com/736x/f3/0f/e3/f30fe393ec765c9f4c7363dea67dcf55.jpg" alt="Old money Outfit" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <span class="piece-num">03</span>
       </div>
-      <div class="product-body">
-        <span class="product-tag">Health care</span>
-        <h4>Gaviscon</h4>
-        <div class="product-footer">
-          <span class="price-tag">₦129.78</span>
-          <button class="add-btn" aria-label="Add to cart">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-media">
-        <img src="https://medexa-ng.com/demo/wp-content/uploads/2019/02/27-Haliborange-Omega-3-DHA.jpg" alt="Haliborange Omega-3 DHA" loading="lazy">
-      </div>
-      <div class="product-body">
-        <span class="product-tag">Mother &amp; child</span>
-        <h4>Haliborange (Omega-3 DHA)</h4>
-        <div class="product-footer">
-          <span class="price-tag">₦15.99</span>
-          <button class="add-btn" aria-label="Add to cart">+</button>
-        </div>
+      <div class="piece-name">Old money Outfit</div>
+      <div class="piece-category">Business · Classic</div>
+      <div class="piece-footer">
+        <span class="piece-price">₦52,000</span>
+        <a href="#contact" class="piece-add">+</a>
       </div>
     </div>
 
-    <div class="product-card">
-      <div class="product-media">
-        <img src="https://medexa-ng.com/demo/wp-content/uploads/2019/02/26-Biosea-Cod-Liver-Oil-jpeg.jpg" alt="Biosea Cod Liver Oil" loading="lazy">
+    <div class="piece-card reveal delay-3">
+      <div class="piece-img">
+        <img src="https://i.pinimg.com/736x/ab/e6/4d/abe64d4e28076440eaec5c3e74b93907.jpg" alt="Evening Column" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <span class="piece-num">04</span>
       </div>
-      <div class="product-body">
-        <span class="product-tag">Health care</span>
-        <h4>Biosea Cod Liver Oil</h4>
-        <span class="product-stars">★★★★☆ 4.0</span>
-        <div class="product-footer">
-          <span class="price-tag">₦18.99</span>
-          <button class="add-btn" aria-label="Add to cart">+</button>
-        </div>
+      <div class="piece-name">Evening Column</div>
+      <div class="piece-category">Formal · Events</div>
+      <div class="piece-footer">
+        <span class="piece-price">₦60,000</span>
+        <a href="#contact" class="piece-add">+</a>
       </div>
     </div>
-
-    <div class="product-card">
-      <div class="product-media">
-        <img src="https://medexa-ng.com/demo/wp-content/uploads/2019/02/21-Reload-Probiotic-sqr.jpg" alt="Reload Probiotic" loading="lazy">
-      </div>
-      <div class="product-body">
-        <span class="product-tag">Health care</span>
-        <h4>Reload Probiotic</h4>
-        <span class="product-stars">★★★★☆ 4.0</span>
-        <div class="product-footer">
-          <span class="price-tag">₦129.78</span>
-          <button class="add-btn" aria-label="Add to cart">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-media">
-        <span class="badge">Sale</span>
-        <img src="https://medexa-ng.com/demo/wp-content/uploads/2019/02/19-Vision-Plus.webp" alt="Vision Plus" loading="lazy">
-      </div>
-      <div class="product-body">
-        <span class="product-tag">Eye care</span>
-        <h4>Vision Plus</h4>
-        <span class="product-stars">★★★★★ 5.0</span>
-        <div class="product-footer">
-          <span class="price-tag"><span class="was">₦65.50</span>₦59.99</span>
-          <button class="add-btn" aria-label="Add to cart">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-media">
-        <img src="https://medexa-ng.com/demo/wp-content/uploads/2019/02/12-Immunace-sqr-1.jpg" alt="Immunace" loading="lazy">
-      </div>
-      <div class="product-body">
-        <span class="product-tag">Health care</span>
-        <h4>Immunace</h4>
-        <div class="product-footer">
-          <span class="price-tag">₦12.78</span>
-          <button class="add-btn" aria-label="Add to cart">+</button>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- Services -->
-<section class="wrap reveal" id="services" style="padding-top:120px; padding-bottom:130px;">
-  <div class="section-head">
-    <div>
-      <span class="tag">Beyond the pharmacy counter</span>
-      <h2>Talk to someone. Get tested. Know what's going on.</h2>
+<!-- Process -->
+<section id="process">
+  <div class="process-inner">
+    <p class="section-label reveal">How it Works</p>
+    <h2 class="section-title reveal" style="color: var(--cream);">Simple as it <em>should be</em></h2>
+
+    <div class="process-steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-title">Browse & Select</div>
+        <p class="step-body">Explore our collections and choose the pieces that speak to you. DM us on Instagram or fill the order form below.</p>
+      </div>
+      <div class="step reveal delay-1">
+        <div class="step-num">02</div>
+        <div class="step-title">Confirm Your Order</div>
+        <p class="step-body">We confirm availability, your size, and delivery details. Payment via bank transfer. We respond within 2 hours.</p>
+      </div>
+      <div class="step reveal delay-2">
+        <div class="step-num">03</div>
+        <div class="step-title">Delivered to You</div>
+        <p class="step-body">Your order is packaged beautifully and delivered within Lagos in 2–3 business days. Outside Lagos by arrangement.</p>
+      </div>
     </div>
-  </div>
-  <div class="services">
-    <a href="https://medexa-ng.com/demo/consultation/" class="service-card a">
-      <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14161A" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-      <h3>Online Consultation</h3>
-      <p>Speak with a licensed pharmacist or doctor from home — describe your symptoms and get guided to the right medicine.</p>
-      <span class="service-link">Book a consultation
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </span>
-    </a>
-    <a href="https://medexa-ng.com/demo/medical-tests/" class="service-card b">
-      <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A6D108" stroke-width="2"><path d="M9 2v6l-6 10a3 3 0 0 0 3 4h12a3 3 0 0 0 3-4L15 8V2"/><line x1="9" y1="2" x2="15" y2="2"/></svg></div>
-      <h3>Medical Tests</h3>
-      <p>Book lab and diagnostic tests with results explained in plain language, not left for you to decode alone.</p>
-      <span class="service-link">See available tests
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </span>
-    </a>
   </div>
 </section>
 
 <!-- Testimonial -->
-<section class="wrap reveal">
-  <div class="quote-wrap">
-    <div class="stars">★★★★★</div>
-    <blockquote>"I finally know what I'm paying for. Medexa showed me the actual cost breakdown before I checked out — and it still got here the same evening."</blockquote>
-    <cite>— A. Balogun, Ogba, Lagos</cite>
+<section id="testimonial">
+  <div class="testimonial-inner reveal">
+    <div class="quote-mark">"</div>
+    <p class="testimonial-text">I wore the Drape blazer to a board meeting and three women asked where I got it. That says everything.</p>
+    <p class="testimonial-author">Adaeze O. — Marketing Director, Victoria Island</p>
   </div>
 </section>
 
-<!-- Newsletter -->
-<section class="wrap reveal" style="padding-top:24px; padding-bottom:130px;">
-  <div class="newsletter">
-    <div>
-      <h3>Get 10% off your first order.</h3>
-      <p>Join the Medexa list for restock alerts, health tips, and early access to weekly deals.</p>
+<!-- Contact -->
+<section id="contact">
+  <div class="contact-text">
+    <p class="section-label reveal">Get in Touch</p>
+    <h2 class="section-title reveal">Ready to<br><em>place an order?</em></h2>
+    <p class="about-body reveal delay-1" style="color: var(--warm-gray);">Fill in the form or reach us directly. We respond quickly — no long waits, no stress.</p>
+
+    <div class="contact-detail reveal delay-2">
+      <div class="contact-item">
+        <label>Instagram</label>
+        <a href="#">@drapelagos</a>
+      </div>
+      <div class="contact-item">
+        <label>WhatsApp</label>
+        <a href="#">+234 XXX XXX XXXX</a>
+      </div>
+      <div class="contact-item">
+        <label>Delivery Areas</label>
+        <p>Lagos Island · Mainland · VI · Lekki & beyond</p>
+      </div>
     </div>
-    <form class="newsletter-form" onsubmit="return false;">
-      <input type="email" placeholder="Your email address" required>
-      <button type="submit">Subscribe</button>
-    </form>
   </div>
+
+  <form class="contact-form reveal delay-1" onsubmit="return false;">
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" placeholder="Amaka">
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" placeholder="Okafor">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" placeholder="amaka@email.com">
+    </div>
+    <div class="form-group">
+      <label>Phone / WhatsApp</label>
+      <input type="tel" placeholder="+234 801 234 5678">
+    </div>
+    <div class="form-group">
+      <label>What are you interested in?</label>
+      <select>
+        <option>Select a collection</option>
+        <option>The Evening Edit</option>
+        <option>Office Hours</option>
+        <option>Weekend Luxe</option>
+        <option>Formal Affairs</option>
+        <option>The Rose Series</option>
+        <option>Multiple / Not sure yet</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Message (optional)</label>
+      <textarea placeholder="Tell us your size, occasion, any details..."></textarea>
+    </div>
+    <button type="submit" class="form-submit">Send Enquiry</button>
+  </form>
 </section>
 
 <!-- Footer -->
 <footer>
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-about">
-        <a href="#" class="footer-logo"><img src="https://medexa-ng.com/demo/wp-content/uploads/2025/11/medexa-logo.png" alt="Medexa Healthcare logo"></a>
-        <p>Haven for safe and effective medicines. Trusted care, building healthier communities across Lagos and beyond.</p>
-        <div class="footer-social">
-          <a href="https://www.tiktok.com/@medexa.healthcare" aria-label="TikTok"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-2.59-2.59c.28 0 .55.04.8.13V9.9a5.68 5.68 0 0 0-.8-.06A5.69 5.69 0 1 0 15.54 15.5V9.05a7.35 7.35 0 0 0 4.31 1.38V7.34s-2.51.13-3.25-1.52Z"/></svg></a>
-          <a href="https://www.instagram.com/medexa.healthcare/" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="https://www.facebook.com/share/1KWmiSVeLd/" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-        </div>
-      </div>
-      <div>
-        <h5>Useful pages</h5>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="https://medexa-ng.com/demo/shop/">Shop</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Our Team</a></li>
-          <li><a href="https://medexa-ng.com/demo/contact">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Services</h5>
-        <ul>
-          <li><a href="https://medexa-ng.com/demo/consultation/">Consultation</a></li>
-          <li><a href="https://medexa-ng.com/demo/medical-tests/">Medical Tests</a></li>
-          <li><a href="#categories">Weekly Deals</a></li>
-          <li><a href="#">Health Tips</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Contact</h5>
-        <ul class="footer-contact">
-          <li>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            25 Nob Oluwa Street, off Odusami Street, off Wemco Rd, Ogba, Lagos, 100218.
-          </li>
-          <li>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            (+234) 707 024 8373
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>Medexa Healthcare © 2026. All rights reserved.</span>
-      <div class="pay"><span>VISA</span><span>MASTERCARD</span><span>USSD</span></div>
-    </div>
+  <div class="footer-logo">Drape<span>.</span></div>
+  <p class="footer-copy">© 2025 Drape Lagos. All rights reserved.</p>
+  <div class="footer-social">
+    <a href="#">Instagram</a>
+    <a href="#">WhatsApp</a>
+    <a href="#">TikTok</a>
   </div>
 </footer>
 
 <script>
-  const els = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  },{threshold:0.12});
-  els.forEach(el=>io.observe(el));
+  // Hamburger menu
+  function toggleMenu() {
+    const links = document.getElementById('nav-links');
+    const btn = document.getElementById('hamburger');
+    links.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('nav-links').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
 
-  document.querySelectorAll('.filter-pill').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    cursorRing.style.left = rx + 'px';
+    cursorRing.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .collection-card, .piece-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursorRing.style.width = '52px';
+      cursorRing.style.height = '52px';
+      cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursorRing.style.width = '32px';
+      cursorRing.style.height = '32px';
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
     });
   });
-</script>
 
+  // Nav scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Three.js Hero
+  (function () {
+    const canvas = document.getElementById('hero-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setClearColor(0x000000, 0);
+    renderer.shadowMap.enabled = true;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+    camera.position.set(0, 0, 6);
+
+    // Background gradient plane (dark)
+    const bgGeo = new THREE.PlaneGeometry(20, 20);
+    const bgMat = new THREE.MeshBasicMaterial({ color: 0x0a0908 });
+    const bgMesh = new THREE.Mesh(bgGeo, bgMat);
+    bgMesh.position.z = -2;
+    scene.add(bgMesh);
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xfaf7f5, 0.3);
+    scene.add(ambientLight);
+
+    const roseLight = new THREE.PointLight(0xc9a49b, 3, 15);
+    roseLight.position.set(3, 2, 4);
+    scene.add(roseLight);
+
+    const warmLight = new THREE.PointLight(0xe8d5d0, 1.5, 10);
+    warmLight.position.set(-4, -1, 3);
+    scene.add(warmLight);
+
+    const creamLight = new THREE.DirectionalLight(0xfaf7f5, 0.8);
+    creamLight.position.set(0, 5, 5);
+    scene.add(creamLight);
+
+    // Floating fabric ribbons (torus knots as abstract draped forms)
+    const ribbons = [];
+
+    const ribbonMat = new THREE.MeshPhysicalMaterial({
+      color: 0x1a1410,
+      metalness: 0.1,
+      roughness: 0.4,
+      reflectivity: 0.6,
+      transparent: true,
+      opacity: 0.85,
+    });
+
+    const roseMat = new THREE.MeshPhysicalMaterial({
+      color: 0xc9a49b,
+      metalness: 0.05,
+      roughness: 0.5,
+      transparent: true,
+      opacity: 0.7,
+    });
+
+    const paleMat = new THREE.MeshPhysicalMaterial({
+      color: 0xe8d5d0,
+      metalness: 0.0,
+      roughness: 0.6,
+      transparent: true,
+      opacity: 0.5,
+    });
+
+    // Large central form
+    const geo1 = new THREE.TorusKnotGeometry(1.2, 0.28, 200, 20, 2, 3);
+    const mesh1 = new THREE.Mesh(geo1, ribbonMat);
+    mesh1.position.set(0, 0, 0);
+    scene.add(mesh1);
+    ribbons.push({ mesh: mesh1, rx: 0.002, ry: 0.004, rz: 0.001, floatSpeed: 0.8, floatAmp: 0.15, baseY: 0 });
+
+    // Rose accent ring
+    const geo2 = new THREE.TorusGeometry(1.9, 0.03, 12, 120);
+    const mesh2 = new THREE.Mesh(geo2, roseMat);
+    mesh2.rotation.x = Math.PI * 0.25;
+    scene.add(mesh2);
+    ribbons.push({ mesh: mesh2, rx: 0.001, ry: 0.003, rz: 0.0005, floatSpeed: 0.6, floatAmp: 0.2, baseY: 0 });
+
+    // Outer pale ring
+    const geo3 = new THREE.TorusGeometry(2.6, 0.015, 8, 150);
+    const mesh3 = new THREE.Mesh(geo3, paleMat);
+    mesh3.rotation.x = Math.PI * 0.5;
+    mesh3.rotation.z = Math.PI * 0.3;
+    scene.add(mesh3);
+    ribbons.push({ mesh: mesh3, rx: -0.0008, ry: 0.002, rz: 0.001, floatSpeed: 1.1, floatAmp: 0.08, baseY: 0 });
+
+    // Small orbiting spheres
+    const sphereGeo = new THREE.SphereGeometry(0.06, 16, 16);
+    const sphereMat = new THREE.MeshPhysicalMaterial({ color: 0xc9a49b, metalness: 0.3, roughness: 0.3 });
+    const numSpheres = 8;
+    const spheres = [];
+    for (let i = 0; i < numSpheres; i++) {
+      const s = new THREE.Mesh(sphereGeo, sphereMat.clone());
+      const angle = (i / numSpheres) * Math.PI * 2;
+      const r = 2.2 + Math.random() * 0.8;
+      s.userData = { angle, r, speed: 0.003 + Math.random() * 0.002, yOff: (Math.random() - 0.5) * 2 };
+      scene.add(s);
+      spheres.push(s);
+    }
+
+    // Particle dust
+    const particleCount = 200;
+    const positions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 10;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
+    }
+    const particleGeo = new THREE.BufferGeometry();
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particleMat = new THREE.PointsMaterial({ color: 0xc9a49b, size: 0.03, transparent: true, opacity: 0.4 });
+    const particles = new THREE.Points(particleGeo, particleMat);
+    scene.add(particles);
+
+    // Mouse influence
+    let targetX = 0, targetY = 0;
+    document.addEventListener('mousemove', e => {
+      targetX = (e.clientX / window.innerWidth - 0.5) * 0.5;
+      targetY = (e.clientY / window.innerHeight - 0.5) * -0.3;
+    });
+
+    // Scroll-based fade and morph
+    let scrollProgress = 0;
+    window.addEventListener('scroll', () => {
+      const heroH = document.getElementById('hero').clientHeight;
+      scrollProgress = Math.min(window.scrollY / heroH, 1);
+    });
+
+    let mouseX = 0, mouseY = 0;
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const elapsed = clock.getElapsedTime();
+
+      mouseX += (targetX - mouseX) * 0.05;
+      mouseY += (targetY - mouseY) * 0.05;
+
+      ribbons.forEach((r, i) => {
+        r.mesh.rotation.x += r.rx + mouseY * 0.01;
+        r.mesh.rotation.y += r.ry + mouseX * 0.01;
+        r.mesh.rotation.z += r.rz;
+        r.mesh.position.y = r.baseY + Math.sin(elapsed * r.floatSpeed) * r.floatAmp;
+        r.mesh.material.opacity = (1 - scrollProgress) * (i === 0 ? 0.85 : i === 1 ? 0.7 : 0.5);
+      });
+
+      spheres.forEach(s => {
+        s.userData.angle += s.userData.speed;
+        s.position.x = Math.cos(s.userData.angle) * s.userData.r + mouseX * 0.5;
+        s.position.y = s.userData.yOff + Math.sin(elapsed * 0.4) * 0.2 + mouseY * 0.3;
+        s.position.z = Math.sin(s.userData.angle) * s.userData.r * 0.5;
+        s.material.opacity = 1 - scrollProgress;
+      });
+
+      particles.rotation.y = elapsed * 0.03;
+      particles.material.opacity = (1 - scrollProgress) * 0.4;
+
+      roseLight.position.x = 3 + Math.sin(elapsed * 0.7) * 2;
+      roseLight.position.y = 2 + Math.cos(elapsed * 0.5) * 1.5;
+
+      camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.03;
+      camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.03;
+      camera.lookAt(0, 0, 0);
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+  })();
+</script>
 </body>
 </html>
